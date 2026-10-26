@@ -131,3 +131,49 @@ img { max-width: 100%; }
   .hero .grande h2 { font-size: 1.7rem; }
   .menu { gap: 8px 18px; }
 }
+
+/* ---- Réplica del mockup: portada en columnas y tarjetas horizontales ---- */
+.foto.hero-foto { aspect-ratio: auto; height: 300px; border: 1px solid var(--line-strong); }
+.foto.mini { aspect-ratio: auto; height: 120px; margin-bottom: 10px; border: 1px solid var(--line-strong); }
+.foto.noti-foto { aspect-ratio: auto; height: 240px; }
+.foto.thumb { aspect-ratio: auto; width: 96px; height: 96px; border-radius: 10px; }
+.foto.thumb .sin { font-size: 0.7rem; padding: 4px; }
+
+.portada { display: flex; flex-wrap: wrap; gap: 32px; padding-top: 28px; }
+.col-izq { flex: 1 1 230px; min-width: 0; padding-right: 24px; border-right: 1px solid var(--line-strong); align-self: stretch; }
+.col-cen { flex: 3 1 460px; min-width: 0; }
+.col-t { margin: 0 0 14px; padding-bottom: 6px; border-bottom: 2px solid var(--ink); font: 700 0.78rem var(--sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.col-izq .item { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line-strong); }
+.col-izq .item .kicker { margin-bottom: 4px; }
+.col-izq .item h3 { margin: 0 0 6px; font: 1rem/1.25 var(--serif); }
+.col-cen h2 { margin: 0 0 14px; font: 800 2.2rem/1.1 var(--serif); }
+.col-cen .pie-foto { display: block; margin: 8px 0 14px; font-size: 0.78rem; font-style: italic; }
+.col-cen .resumen { margin: 0 0 12px; font-size: 1rem; line-height: 1.55; }
+.col-cen .leer { margin: 0 0 22px; font: 700 0.78rem var(--sans); }
+.col-cen .leer a { color: var(--green); }
+.col-cen .dos { display: flex; flex-wrap: wrap; gap: 24px; padding-top: 18px; border-top: 1px solid var(--ink); }
+.sec-card { flex: 1 1 200px; min-width: 0; }
+.sec-card .kicker { margin-bottom: 4px; }
+.sec-card h3 { margin: 0 0 6px; font: 1.17rem/1.2 var(--serif); }
+.sec-card p { margin: 0; font-size: 0.83rem; line-height: 1.5; color: #2F3431; }
+
+.intro-sec { margin: 0 0 16px; font-size: 0.89rem; color: var(--muted); }
+.seccion, #mas { margin-top: 30px; }
+.seccion .sec-t, #mas .sec-t { margin: 0 0 6px; }
+.sec-t h2 { font-size: 1.67rem; }
+.rej-h { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.tarjeta-h { min-width: 0; display: flex; gap: 14px; align-items: flex-start; padding: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 2px 10px rgba(32, 35, 33, 0.06); }
+.tarjeta-h .miniatura { flex: 0 0 96px; }
+.tarjeta-h .cuerpo { flex: 1 1 0; min-width: 0; }
+.tarjeta-h .kicker { margin-bottom: 8px; }
+.tarjeta-h h3 { margin: 0 0 6px; font: 1rem/1.25 var(--serif); }
+.hero .grande .cuerpo-g { margin-top: 14px; }
+.hero .grande .cuerpo-g h2 { margin: 0 0 10px; font: 2rem/1.15 var(--serif); }
+.hero .grande .cuerpo-g p { margin: 0 0 10px; font-size: 1rem; line-height: 1.5; color: #2F3431; }
+@media (max-width: 640px) {
+  .col-izq { padding-right: 0; border-right: 0; }
+  .col-cen h2 { font-size: 1.7rem; }
+  .foto.hero-foto { height: 220px; }
+}
+
+.hero .grande { flex: 0 1 820px; }

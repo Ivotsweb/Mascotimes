@@ -13,7 +13,16 @@
   }
   function limpiar(n) { while (n.firstChild) n.removeChild(n.firstChild); }
   function dominio(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
-  function etiqueta(c) { return c === 'Estudios' ? 'Ciencia' : (c || 'Noticias'); }
+  var SECCIONES = ['Perros', 'Gatos', 'España', 'Legales'];
+  var INTROS = {
+    'Perros': 'Educación, salud, razas y vida diaria con tu perro.',
+    'Gatos': 'Comportamiento, salud y hogar con tu gato.',
+    'España': 'Lo que ocurre cerca de ti, ciudad a ciudad.',
+    'Legales': 'Normas oficiales con su fecha de vigencia. Información orientativa: consulta a un profesional.'
+  };
+  function sec(n) { return n.seccion || n.categoria || 'Noticias'; }
+  function etiqueta(c) { return c || 'Noticias'; }
+  function autorHora(n) { return 'Redacción de MascoTimes' + (hora(n.fecha) ? ' · ' + hora(n.fecha) : ''); }
   function fechaLarga(iso) {
     var d = new Date(iso);
     if (isNaN(d)) return '';
@@ -30,13 +39,13 @@
   var f = document.getElementById('fecha-hoy');
   if (f) f.textContent = fechaLarga(new Date().toISOString());
 
-  function foto(n, alto) {
-    var fig = el('a', 'foto');
+  function foto(n, clase, eager) {
+    var fig = el('a', 'foto' + (clase ? ' ' + clase : ''));
     fig.href = urlNoticia(n);
     fig.setAttribute('aria-label', n.titular);
     if (n.imagen) {
       var img = el('img');
-      img.loading = alto ? 'eager' : 'lazy';
+      img.loading = eager ? 'eager' : 'lazy';
       img.alt = 'Ilustración generada con IA para: ' + n.titular;
       img.src = API + 'foto-publica?g=' + encodeURIComponent(n.id);
       img.addEventListener('error', function () { img.remove(); fig.appendChild(el('span', 'sin', 'MascoTimes')); });
@@ -55,17 +64,6 @@
     return h;
   }
 
-  function tarjeta(n) {
-    var t = el('article', 'tarjeta');
-    t.appendChild(foto(n));
-    var c = el('div', 'cuerpo');
-    c.appendChild(el('span', 'kicker', etiqueta(n.categoria)));
-    c.appendChild(enlaceTitulo('h3', n));
-    c.appendChild(el('p', null, n.entradilla));
-    t.appendChild(c);
-    return t;
-  }
-
   function lateral(titulo, lista) {
     var p = el('div', 'panel');
     p.appendChild(el('span', 'kicker', titulo));
@@ -74,23 +72,36 @@
       var a = el('a', null, n.titular);
       a.href = urlNoticia(n);
       d.appendChild(a);
-      d.appendChild(el('small', null, etiqueta(n.categoria) + ' · ' + fechaLarga(n.fecha)));
+      d.appendChild(el('small', null, sec(n) + ' · ' + fechaLarga(n.fecha)));
       p.appendChild(d);
     });
     return p;
   }
 
-  function grande(n) {
-    var d = el('article', 'grande');
-    d.appendChild(foto(n, true));
-    var c = el('div');
-    var k = el('span', 'kicker', 'Portada del día · ' + etiqueta(n.categoria));
-    k.className = 'kicker';
-    c.appendChild(k);
-    c.appendChild(enlaceTitulo('h2', n));
-    c.appendChild(el('p', null, n.entradilla));
-    c.appendChild(el('span', 'autor', 'Por la Redacción de MascoTimes · Fuente original enlazada en la noticia'));
-    d.appendChild(c);
+  /* Tarjeta horizontal (miniatura + categoría + titular + hora), como en el mockup */
+  function tarjetaH(n) {
+    var t = el('article', 'tarjeta-h');
+    var f = el('div', 'miniatura');
+    f.appendChild(foto(n, 'thumb'));
+    t.appendChild(f);
+    var c = el('div', 'cuerpo');
+    c.appendChild(el('span', 'kicker', sec(n)));
+    c.appendChild(enlaceTitulo('h3', n));
+    c.appendChild(el('span', 'autor', autorHora(n)));
+    t.appendChild(c);
+    return t;
+  }
+
+  /* Cabecera de sección con doble filete */
+  function cabSeccion(titulo, enlaceTxt, alClic) {
+    var d = el('div', 'sec-t');
+    d.appendChild(el('h2', null, titulo));
+    if (enlaceTxt) {
+      var a = el('a', null, enlaceTxt);
+      a.href = '/noticias/';
+      if (alClic) a.addEventListener('click', function (e) { e.preventDefault(); alClic(); });
+      d.appendChild(a);
+    }
     return d;
   }
 
@@ -104,59 +115,143 @@
       });
   }
 
+  /* Reparte las noticias para que no se repitan en la misma página y se mezclen las secciones */
+  function repartir(ns, nUltima, nSec) {
+    var resto = ns.slice(1);
+    var ultima = [];
+    var i = 0;
+    var vistas = {};
+    resto.forEach(function (n) { if (ultima.length < nUltima && !vistas[sec(n)]) { vistas[sec(n)] = 1; ultima.push(n); } });
+    resto.forEach(function (n) { if (ultima.length < nUltima && ultima.indexOf(n) < 0) ultima.push(n); });
+    resto = resto.filter(function (n) { return ultima.indexOf(n) < 0; });
+    var secundarias = [];
+    var vistas2 = {};
+    resto.forEach(function (n) { if (secundarias.length < nSec && !vistas2[sec(n)]) { vistas2[sec(n)] = 1; secundarias.push(n); } });
+    resto.forEach(function (n) { if (secundarias.length < nSec && secundarias.indexOf(n) < 0) secundarias.push(n); });
+    resto = resto.filter(function (n) { return secundarias.indexOf(n) < 0; });
+    return { portada: ns[0], ultima: ultima, secundarias: secundarias, mas: resto };
+  }
+
   /* ---------- Portada ---------- */
   function pintarPortada(ns) {
     var raiz = document.getElementById('contenido');
+    var mas = document.getElementById('mas');
     limpiar(raiz);
     if (!ns.length) { raiz.appendChild(el('p', 'estado', 'Hoy todavía no hay noticias. Vuelve pronto.')); return; }
-    var hero = el('section', 'hero');
-    hero.appendChild(grande(ns[0]));
-    var as = el('aside');
-    as.appendChild(lateral('Última hora', ns.slice(1, 5)));
-    hero.appendChild(as);
-    raiz.appendChild(hero);
+    var r = repartir(ns, 4, 2);
 
-    var t1 = el('div', 'sec-t');
-    t1.appendChild(el('h2', null, 'Más noticias de hoy'));
-    var ver = el('a', null, 'Ver todas');
-    ver.href = '/noticias/';
-    t1.appendChild(ver);
-    raiz.appendChild(t1);
-    var rej = el('div', 'rejilla');
-    ns.slice(5, 11).forEach(function (n) { rej.appendChild(tarjeta(n)); });
-    raiz.appendChild(rej);
+    var main = el('section', 'portada');
+    /* Columna izquierda: Última hora */
+    var izq = el('aside', 'col-izq');
+    izq.appendChild(el('h2', 'col-t', 'Última hora'));
+    r.ultima.forEach(function (n) {
+      var a = el('article', 'item');
+      a.appendChild(el('span', 'kicker', sec(n)));
+      a.appendChild(enlaceTitulo('h3', n));
+      a.appendChild(el('span', 'autor', autorHora(n)));
+      izq.appendChild(a);
+    });
+    main.appendChild(izq);
+
+    /* Columna central: Portada del día */
+    var cen = el('section', 'col-cen');
+    cen.appendChild(el('span', 'kicker', 'Portada del día'));
+    cen.appendChild(enlaceTitulo('h2', r.portada));
+    cen.appendChild(foto(r.portada, 'hero-foto', true));
+    cen.appendChild(el('span', 'pie-foto', 'Ilustración generada con IA, MascoTimes'));
+    cen.appendChild(el('p', 'resumen', r.portada.entradilla));
+    var p = el('p', 'leer');
+    var l = el('a', null, 'Leer la noticia completa');
+    l.href = urlNoticia(r.portada);
+    p.appendChild(l);
+    cen.appendChild(p);
+    if (r.secundarias.length) {
+      var dos = el('div', 'dos');
+      r.secundarias.forEach(function (n) {
+        var a = el('article', 'sec-card');
+        a.appendChild(foto(n, 'mini'));
+        a.appendChild(el('span', 'kicker', sec(n)));
+        a.appendChild(enlaceTitulo('h3', n));
+        a.appendChild(el('p', null, n.entradilla));
+        dos.appendChild(a);
+      });
+      cen.appendChild(dos);
+    }
+    main.appendChild(cen);
+    raiz.appendChild(main);
+
+    /* Más noticias de hoy (debajo del bloque PawDatas) */
+    if (mas) {
+      limpiar(mas);
+      if (r.mas.length) {
+        mas.appendChild(cabSeccion('Más noticias de hoy', 'Ver todas'));
+        mas.appendChild(el('p', 'intro-sec', 'Lo que no te puedes perder.'));
+        var g = el('div', 'rej-h');
+        r.mas.slice(0, 6).forEach(function (n) { g.appendChild(tarjetaH(n)); });
+        mas.appendChild(g);
+      }
+    }
   }
 
   /* ---------- Listado de noticias ---------- */
   function pintarListado(ns) {
     var raiz = document.getElementById('contenido');
+    var filtros = document.getElementById('filtros');
     var filtro = '';
+    var presentes = SECCIONES.filter(function (s) { return ns.some(function (n) { return sec(n) === s; }); });
+
+    function marcar() {
+      Array.prototype.forEach.call(filtros.querySelectorAll('button'), function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === filtro));
+      });
+    }
+    function elegir(f) { filtro = f; marcar(); dibujar(); window.scrollTo(0, 0); }
+
+    limpiar(filtros);
+    [''].concat(presentes).forEach(function (s) {
+      var b = el('button', 'pill', s || 'Todas');
+      b.type = 'button';
+      b.setAttribute('data-f', s);
+      b.addEventListener('click', function () { elegir(s); });
+      filtros.appendChild(b);
+    });
+    marcar();
+
+    function seccion(s, lista) {
+      var sc = el('section', 'seccion');
+      sc.id = s.toLowerCase().replace('ñ', 'n');
+      sc.appendChild(cabSeccion(s, filtro ? '' : 'Ver todas', function () { elegir(s); }));
+      sc.appendChild(el('p', 'intro-sec', INTROS[s] || ''));
+      var g = el('div', 'rej-h');
+      lista.forEach(function (n) { g.appendChild(tarjetaH(n)); });
+      sc.appendChild(g);
+      return sc;
+    }
+
     function dibujar() {
       limpiar(raiz);
-      var vis = ns.filter(function (n) { return !filtro || n.categoria === filtro; });
-      if (!vis.length) { raiz.appendChild(el('p', 'estado', 'Todavía no hay noticias en este tema. Vuelve pronto.')); return; }
-      var hero = el('section', 'hero');
-      hero.appendChild(grande(vis[0]));
-      var as = el('aside');
-      if (vis.length > 1) as.appendChild(lateral('Lo más reciente', vis.slice(1, 5)));
-      hero.appendChild(as);
-      raiz.appendChild(hero);
-      if (vis.length > 5) {
-        var t = el('div', 'sec-t');
-        t.appendChild(el('h2', null, filtro ? etiqueta(filtro) : 'Todas las noticias'));
-        raiz.appendChild(t);
-        var rej = el('div', 'rejilla');
-        vis.slice(5).forEach(function (n) { rej.appendChild(tarjeta(n)); });
-        raiz.appendChild(rej);
+      if (!ns.length) { raiz.appendChild(el('p', 'estado', 'Todavía no hay noticias. Vuelve pronto.')); return; }
+      if (filtro) {
+        raiz.appendChild(seccion(filtro, ns.filter(function (n) { return sec(n) === filtro; })));
+        return;
       }
-    }
-    document.querySelectorAll('.filtros button').forEach(function (b) {
-      b.addEventListener('click', function () {
-        filtro = b.getAttribute('data-f');
-        document.querySelectorAll('.filtros button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-        dibujar();
+      var top = ns[0];
+      var hero = el('section', 'hero');
+      var art = el('article', 'grande');
+      art.appendChild(foto(top, 'noti-foto', true));
+      var c = el('div', 'cuerpo-g');
+      c.appendChild(el('span', 'kicker', 'Portada del día'));
+      c.appendChild(enlaceTitulo('h2', top));
+      c.appendChild(el('p', null, top.entradilla));
+      c.appendChild(el('span', 'autor', 'Por la Redacción de MascoTimes · Fuentes citadas al final de la pieza'));
+      art.appendChild(c);
+      hero.appendChild(art);
+      raiz.appendChild(hero);
+      presentes.forEach(function (s) {
+        var lista = ns.filter(function (n) { return n !== top && sec(n) === s; });
+        if (lista.length) raiz.appendChild(seccion(s, lista));
       });
-    });
+    }
     dibujar();
   }
 
@@ -184,9 +279,9 @@
     var migas = el('p', 'migas');
     var a1 = el('a', null, 'Noticias'); a1.href = '/noticias/';
     migas.appendChild(a1);
-    migas.appendChild(document.createTextNode(' › ' + etiqueta(n.categoria)));
+    migas.appendChild(document.createTextNode(' › ' + sec(n)));
     art.appendChild(migas);
-    art.appendChild(el('span', 'kicker', etiqueta(n.categoria)));
+    art.appendChild(el('span', 'kicker', sec(n)));
     art.appendChild(el('h1', null, n.titular));
     art.appendChild(el('p', 'entradilla', n.entradilla));
 
