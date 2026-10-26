@@ -2,7 +2,7 @@
 
 Newsletter automatizada sobre mascotas.
 
-- `web`: web pública (nginx, de momento una página placeholder)
+- `web`: web pública (nginx). Carpeta `web/`: portada y sección /noticias, que lee las noticias aprobadas desde la API pública de n8n
 - `n8n`: automatizaciones (con Claude vía credenciales de Anthropic dentro de n8n)
 
 Variables de entorno que se configuran en Dokploy (nunca en el repo, es público):
