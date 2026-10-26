@@ -7,184 +7,43 @@
   <meta name="description" content="Las noticias del día sobre perros y gatos, contadas como historias: rescates, convivencia, cuidados y estudios científicos explicados sin tecnicismos.">
   <link rel="canonical" href="https://mascotimes.com/noticias/">
   <meta property="og:title" content="Noticias de perros y gatos | MascoTimes">
-  <meta property="og:description" content="Historias, cuidados y ciencia sobre perros y gatos, cada día.">
+  <meta property="og:description" content="Las noticias del día sobre perros y gatos, contadas como historias: rescates, convivencia, cuidados y estudios científicos explicados sin tecnicismos.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mascotimes.com/noticias/">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https://api.mascotimes.com data:; connect-src https://api.mascotimes.com; base-uri 'none'; form-action 'none'">
-  <style>
-    :root {
-      --paper: #F7F3EB;
-      --ink: #1b1b19;
-      --muted: #4a4a45;
-      --green: #1B4D3A;
-      --green-dark: #123527;
-      --line: #cfc7b6;
-      --card: #fffdf8;
-      --accent: #8a3b16;
-    }
-    * { box-sizing: border-box; }
-    html { font-size: 20px; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Georgia, "Times New Roman", serif; line-height: 1.6; }
-    a { color: var(--green); }
-    a:focus-visible, button:focus-visible { outline: 3px solid #b5532b; outline-offset: 3px; }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
-    header.mast { border-bottom: 4px double var(--ink); padding: 20px 0 14px; text-align: center; }
-    .mast h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 3.6rem); letter-spacing: 0.01em; line-height: 1.1; }
-    .mast h1 a { color: var(--ink); text-decoration: none; }
-    .mast .meta { margin-top: 6px; font: 0.8rem/1.4 Arial, Helvetica, sans-serif; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-    nav.filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 16px 0; border-bottom: 1px solid var(--line); }
-    nav.filters button { font: 700 0.85rem Arial, Helvetica, sans-serif; background: transparent; color: var(--green); border: 2px solid var(--green); border-radius: 999px; padding: 10px 18px; cursor: pointer; min-height: 44px; }
-    nav.filters button[aria-pressed="true"] { background: var(--green); color: #fff; }
-    main { padding: 24px 0 40px; }
-    .lead { font-size: 1.05rem; color: var(--muted); max-width: 46rem; margin: 0 auto 24px; text-align: center; }
-    article.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 0 0 28px; }
-    article.card figure { margin: 0; position: relative; }
-    article.card img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: #e8e1d0; }
-    article.card figcaption { font: 0.7rem Arial, Helvetica, sans-serif; color: var(--muted); padding: 6px 14px; border-top: 1px solid var(--line); }
-    .body { padding: 18px 20px 22px; }
-    .kicker { font: 700 0.75rem Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin: 0 0 6px; }
-    article.card h2 { margin: 0 0 10px; font-size: clamp(1.45rem, 4.5vw, 2rem); line-height: 1.2; }
-    .entradilla { font-size: 1.08rem; margin: 0 0 12px; color: #2a2a27; }
-    .texto p { margin: 0 0 14px; }
-    .texto[hidden] { display: none; }
-    .btn { font: 700 0.85rem Arial, Helvetica, sans-serif; background: var(--green); color: #fff; border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; min-height: 44px; }
-    .btn:hover { background: var(--green-dark); }
-    .fuente { font: 0.8rem/1.5 Arial, Helvetica, sans-serif; color: var(--muted); margin: 14px 0 0; }
-    .estado { text-align: center; font: 1rem Arial, Helvetica, sans-serif; color: var(--muted); padding: 40px 0; }
-    footer { border-top: 4px double var(--ink); padding: 22px 0 40px; font: 0.8rem/1.6 Arial, Helvetica, sans-serif; color: var(--muted); }
-    footer p { margin: 0 0 10px; }
-    @media (min-width: 760px) {
-      article.card.con-foto { display: grid; grid-template-columns: 5fr 6fr; }
-      article.card.con-foto figure { height: 100%; display: flex; flex-direction: column; }
-      article.card.con-foto img { flex: 1; aspect-ratio: auto; min-height: 260px; }
-    }
-  </style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://api.mascotimes.com data:; connect-src https://api.mascotimes.com; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="/assets/logo-mascotimes.png">
+  <link rel="stylesheet" href="/assets/mt.css">
 </head>
-<body>
-  <header class="mast">
-    <div class="wrap">
-      <h1><a href="/">MascoTimes</a></h1>
-      <div class="meta" id="fecha-hoy">Noticias de perros y gatos</div>
-    </div>
-  </header>
-
+<body data-page="listado">
   <div class="wrap">
-    <nav class="filters" aria-label="Filtrar por tema">
-      <button type="button" data-f="" aria-pressed="true">Todas</button>
-      <button type="button" data-f="Perros" aria-pressed="false">Perros</button>
-      <button type="button" data-f="Gatos" aria-pressed="false">Gatos</button>
-      <button type="button" data-f="Estudios" aria-pressed="false">Estudios</button>
-    </nav>
-
-    <main>
-      <p class="lead">Historias reales, cuidados y ciencia sobre perros y gatos, contadas para que se lean con gusto.</p>
-      <div id="lista" aria-live="polite"><p class="estado">Cargando las noticias de hoy…</p></div>
-      <noscript><p class="estado">Para ver las noticias necesitas activar JavaScript en tu navegador.</p></noscript>
-    </main>
-  </div>
-
-  <footer>
-    <div class="wrap">
-      <p><strong>Cómo hacemos MascoTimes.</strong> Las noticias se redactan con ayuda de inteligencia artificial a partir de fuentes públicas que enlazamos en cada texto, y una persona aprueba cada una antes de publicarla. Reescribimos con palabras propias y enviamos siempre a la fuente original.</p>
-      <p>Las imágenes son ilustrativas, generadas con inteligencia artificial, y no muestran hechos reales. Lo que publicamos es informativo y no sustituye el consejo de tu veterinario.</p>
-      <p>Esta web no usa cookies ni rastreadores.</p>
+    <div class="topbar">
+      <a href="https://pawdatas.com" rel="noopener">PawDatas · Datos de la comunidad</a>
+      <span class="fecha" id="fecha-hoy"></span>
     </div>
-  </footer>
-
-  <script>
-    (function () {
-      var API = 'https://api.mascotimes.com/webhook/';
-      var lista = document.getElementById('lista');
-      var todas = [];
-      var filtro = '';
-
-      var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-      var d = new Date();
-      document.getElementById('fecha-hoy').textContent = d.getDate() + ' de ' + meses[d.getMonth()] + ' de ' + d.getFullYear() + ' · Noticias de perros y gatos';
-
-      function el(tag, cls, txt) {
-        var e = document.createElement(tag);
-        if (cls) e.className = cls;
-        if (txt != null) e.textContent = txt;
-        return e;
-      }
-
-      function dominio(url) {
-        try { return new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
-      }
-
-      function tarjeta(n) {
-        var a = el('article', 'card' + (n.imagen ? ' con-foto' : ''));
-        a.id = 'n-' + n.id;
-        if (n.imagen) {
-          var f = el('figure');
-          var img = el('img');
-          img.loading = 'lazy';
-          img.alt = 'Ilustración generada con IA para: ' + n.titular;
-          img.src = API + 'foto-publica?g=' + encodeURIComponent(n.id);
-          img.addEventListener('error', function () { a.classList.remove('con-foto'); f.remove(); });
-          f.appendChild(img);
-          f.appendChild(el('figcaption', null, 'Imagen ilustrativa generada con IA'));
-          a.appendChild(f);
-        }
-        var b = el('div', 'body');
-        b.appendChild(el('p', 'kicker', n.categoria === 'Estudios' ? 'Ciencia' : (n.categoria || 'Noticias')));
-        b.appendChild(el('h2', null, n.titular));
-        b.appendChild(el('p', 'entradilla', n.entradilla));
-        var t = el('div', 'texto');
-        t.hidden = true;
-        (n.cuerpo || []).forEach(function (p) { t.appendChild(el('p', null, p)); });
-        b.appendChild(t);
-        var btn = el('button', 'btn', 'Leer la noticia');
-        btn.type = 'button';
-        btn.setAttribute('aria-expanded', 'false');
-        btn.addEventListener('click', function () {
-          var abierto = t.hidden;
-          t.hidden = !abierto;
-          btn.textContent = abierto ? 'Cerrar' : 'Leer la noticia';
-          btn.setAttribute('aria-expanded', String(abierto));
-        });
-        b.appendChild(btn);
-        if (n.fuente_url) {
-          var p = el('p', 'fuente');
-          p.appendChild(document.createTextNode('Fuente original: '));
-          var l = el('a', null, dominio(n.fuente_url) || (n.medio || 'ver original'));
-          l.href = n.fuente_url;
-          l.rel = 'noopener noreferrer';
-          l.target = '_blank';
-          p.appendChild(l);
-          b.appendChild(p);
-        }
-        a.appendChild(b);
-        return a;
-      }
-
-      function pintar() {
-        lista.textContent = '';
-        var vis = todas.filter(function (n) { return !filtro || n.categoria === filtro; });
-        if (!vis.length) { lista.appendChild(el('p', 'estado', 'Todavía no hay noticias en este tema. Vuelve pronto.')); return; }
-        vis.forEach(function (n) { lista.appendChild(tarjeta(n)); });
-        if (location.hash && document.querySelector(location.hash)) {
-          document.querySelector(location.hash).scrollIntoView();
-        }
-      }
-
-      document.querySelectorAll('nav.filters button').forEach(function (b) {
-        b.addEventListener('click', function () {
-          filtro = b.getAttribute('data-f');
-          document.querySelectorAll('nav.filters button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-          pintar();
-        });
-      });
-
-      fetch(API + 'noticias-publicas')
-        .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
-        .then(function (j) { todas = (j && j.noticias) || []; pintar(); })
-        .catch(function () {
-          lista.textContent = '';
-          lista.appendChild(el('p', 'estado', 'No hemos podido cargar las noticias ahora mismo. Inténtalo de nuevo en unos minutos.'));
-        });
-    })();
-  </script>
+    <header class="mast">
+      <h1><a href="/"><img src="/assets/logo-mascotimes.png" alt="MascoTimes" width="520" height="173"></a></h1>
+      <p class="lema">El periódico de quienes aman a sus mascotas</p>
+    </header>
+    <nav class="menu" aria-label="Secciones">
+      <a href="/">Portada</a>
+      <a href="/noticias/" class="activo" aria-current="page">Noticias</a>
+      <span class="pronto">Etapa a etapa <small>(pronto)</small></span>
+      <span class="pronto">Aprende jugando <small>(pronto)</small></span>
+    </nav>
+    <div class="intro"><h2>Noticias</h2><p>Lo que pasa hoy en el mundo de las mascotas: perros, gatos y ciencia, con su fuente y su enlace.</p></div>
+    <div class="filtros" role="group" aria-label="Filtrar por tema">
+      <button type="button" class="pill" data-f="" aria-pressed="true">Todas</button>
+      <button type="button" class="pill" data-f="Perros" aria-pressed="false">Perros</button>
+      <button type="button" class="pill" data-f="Gatos" aria-pressed="false">Gatos</button>
+      <button type="button" class="pill" data-f="Estudios" aria-pressed="false">Ciencia</button>
+    </div>
+    <main id="contenido" aria-live="polite"><p class="estado">Cargando las noticias de hoy…</p></main>
+    <noscript><p class="estado">Para ver las noticias necesitas activar JavaScript en tu navegador.</p></noscript>
+    <footer class="pie">
+      <span>MascoTimes · Información orientativa sobre salud y leyes. Consulta a tu veterinario o a un profesional.</span>
+      <p class="legal-ia"><strong>Cómo hacemos MascoTimes.</strong> Las noticias se redactan con ayuda de inteligencia artificial a partir de fuentes públicas que enlazamos en cada texto, y una persona aprueba cada una antes de publicarla. Reescribimos con palabras propias y enviamos siempre a la fuente original. Las imágenes son ilustrativas, generadas con inteligencia artificial, y no muestran hechos reales. Lo que publicamos es informativo y no sustituye el consejo de tu veterinario. Esta web no usa cookies ni rastreadores.</p>
+    </footer>
+  </div>
+  <script src="/assets/mt.js"></script>
 </body>
 </html>
