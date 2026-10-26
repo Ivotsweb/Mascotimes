@@ -3,23 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MascoTimes | Noticias de perros y gatos</title>
-  <meta name="description" content="MascoTimes, el periódico de perros y gatos: noticias, cuidados y ciencia contados como historias.">
+  <title>MascoTimes | El periódico de perros y gatos</title>
+  <meta name="description" content="MascoTimes, el periódico de quienes aman a sus mascotas: noticias de perros y gatos, cuidados y ciencia contados como historias.">
   <link rel="canonical" href="https://mascotimes.com/">
-  <style>
-    body { font-family: Georgia, "Times New Roman", serif; background: #F7F3EB; color: #1b1b19; display: grid; place-items: center; min-height: 100vh; margin: 0; }
-    main { text-align: center; padding: 16px; max-width: 34rem; }
-    h1 { font-size: clamp(2.6rem, 9vw, 4rem); margin: 0 0 8px; }
-    p { font-size: 1.25rem; line-height: 1.5; margin: 0 0 24px; }
-    a.btn { display: inline-block; font: 700 1.1rem Arial, Helvetica, sans-serif; background: #1B4D3A; color: #fff; text-decoration: none; padding: 16px 30px; border-radius: 999px; }
-    a.btn:focus-visible { outline: 3px solid #b5532b; outline-offset: 3px; }
-  </style>
+  <meta property="og:title" content="MascoTimes | El periódico de perros y gatos">
+  <meta property="og:description" content="MascoTimes, el periódico de quienes aman a sus mascotas: noticias de perros y gatos, cuidados y ciencia contados como historias.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mascotimes.com/">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://api.mascotimes.com data:; connect-src https://api.mascotimes.com; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="/assets/logo-mascotimes.png">
+  <link rel="stylesheet" href="/assets/mt.css">
 </head>
-<body>
-  <main>
-    <h1>MascoTimes</h1>
-    <p>El periódico de perros y gatos. Historias, cuidados y ciencia, cada día.</p>
-    <a class="btn" href="/noticias/">Leer las noticias de hoy</a>
-  </main>
+<body data-page="portada">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="https://pawdatas.com" rel="noopener">PawDatas · Datos de la comunidad</a>
+      <span class="fecha" id="fecha-hoy"></span>
+    </div>
+    <header class="mast">
+      <h1><a href="/"><img src="/assets/logo-mascotimes.png" alt="MascoTimes" width="520" height="173"></a></h1>
+      <p class="lema">El periódico de quienes aman a sus mascotas</p>
+    </header>
+    <nav class="menu" aria-label="Secciones">
+      <a href="/" class="activo" aria-current="page">Portada</a>
+      <a href="/noticias/">Noticias</a>
+      <span class="pronto">Etapa a etapa <small>(pronto)</small></span>
+      <span class="pronto">Aprende jugando <small>(pronto)</small></span>
+    </nav>
+    <main id="contenido" aria-live="polite"><p class="estado">Cargando las noticias de hoy…</p></main>
+    <noscript><p class="estado">Para ver las noticias necesitas activar JavaScript en tu navegador.</p></noscript>
+    <section class="banda" aria-label="Los personajes de MascoTimes">
+      <img src="/assets/personajes.jpg" alt="Los personajes de MascoTimes: perros y gatos ilustrados, entre ellos Moona, Luke, Gatsby, Meru, Maca, Nyx, Trufa, Care, Campanita, Muñeca, Princesa, Niño, Tomás y Elsa" width="2067" height="761" loading="lazy">
+      <p>La redacción peluda de MascoTimes: las mascotas que ponen cara a nuestras historias.</p>
+    </section>
+    <div class="sec-t"><h2>Muy pronto</h2></div>
+    <div class="proximamente">
+      <div class="panel"><h3>Etapa a etapa</h3><p>Elige tu mascota y su edad y te contamos qué le pasa, qué siente y qué puedes hacer ahora.</p></div>
+      <div class="panel"><h3>Aprende jugando</h3><p>Pequeños retos para cuidar mejor a perros y gatos y ganar insignias por el camino.</p></div>
+    </div>
+    <footer class="pie">
+      <span>MascoTimes · Información orientativa sobre salud y leyes. Consulta a tu veterinario o a un profesional.</span>
+      <p class="legal-ia"><strong>Cómo hacemos MascoTimes.</strong> Las noticias se redactan con ayuda de inteligencia artificial a partir de fuentes públicas que enlazamos en cada texto, y una persona aprueba cada una antes de publicarla. Reescribimos con palabras propias y enviamos siempre a la fuente original. Las imágenes son ilustrativas, generadas con inteligencia artificial, y no muestran hechos reales. Lo que publicamos es informativo y no sustituye el consejo de tu veterinario. Esta web no usa cookies ni rastreadores.</p>
+    </footer>
+  </div>
+  <script src="/assets/mt.js"></script>
 </body>
 </html>
