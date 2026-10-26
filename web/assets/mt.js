@@ -273,6 +273,37 @@
     document.title = n.titular + ' | MascoTimes';
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute('content', n.entradilla);
+    /* SEO: enlace canónico propio, etiquetas sociales y datos estructurados de artículo */
+    var urlCanon = 'https://mascotimes.com/noticia/?id=' + encodeURIComponent(n.id);
+    var imgUrl = n.imagen ? API + 'foto-publica?g=' + encodeURIComponent(n.id) : '';
+    function fijar(sel, attr, val, crear) {
+      var m = document.querySelector(sel);
+      if (!m && crear) { m = crear(); document.head.appendChild(m); }
+      if (m) m.setAttribute(attr, val);
+    }
+    fijar('link[rel="canonical"]', 'href', urlCanon, function () { var l = document.createElement('link'); l.rel = 'canonical'; return l; });
+    fijar('meta[property="og:title"]', 'content', n.titular);
+    fijar('meta[property="og:description"]', 'content', n.entradilla);
+    fijar('meta[property="og:url"]', 'content', urlCanon);
+    fijar('meta[property="og:type"]', 'content', 'article');
+    if (imgUrl) fijar('meta[property="og:image"]', 'content', imgUrl, function () { var m = document.createElement('meta'); m.setAttribute('property', 'og:image'); return m; });
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    var datos = {
+      '@context': 'https://schema.org',
+      '@type': 'NewsArticle',
+      headline: n.titular,
+      description: n.entradilla,
+      datePublished: n.fecha,
+      dateModified: n.fecha,
+      mainEntityOfPage: urlCanon,
+      inLanguage: 'es',
+      author: { '@type': 'Organization', name: 'Redacción de MascoTimes' },
+      publisher: { '@type': 'Organization', name: 'MascoTimes', logo: { '@type': 'ImageObject', url: 'https://mascotimes.com/assets/favicon.png' } }
+    };
+    if (imgUrl) datos.image = [imgUrl];
+    ld.textContent = JSON.stringify(datos);
+    document.head.appendChild(ld);
 
     var cont = el('div', 'nota');
     var art = el('article');
