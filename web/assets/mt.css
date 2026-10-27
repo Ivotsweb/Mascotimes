@@ -177,3 +177,14 @@ img { max-width: 100%; }
 }
 
 .hero .grande { flex: 0 1 820px; }
+/* Aviso legal */
+.legal { max-width: 760px; padding: 26px 0 8px; font-size: 1rem; line-height: 1.6; }
+.legal h2 { margin: 0 0 18px; font: 2.2rem/1.1 var(--serif); }
+.legal h3 { margin: 26px 0 6px; font: 1.25rem/1.3 var(--serif); }
+.legal p { margin: 0 0 10px; }
+.legal-datos { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
+.legal-datos dt { font-weight: 700; }
+.legal-datos dd { margin: 0; }
+.legal-fecha { margin-top: 26px; font-size: 0.9rem; color: var(--muted); }
+.pie-enlaces a { font-size: 0.9rem; }
+@media (max-width: 520px) { .legal-datos { grid-template-columns: 1fr; gap: 2px; } .legal-datos dd { margin-bottom: 8px; } }
