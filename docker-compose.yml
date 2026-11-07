@@ -27,6 +27,11 @@ services:
       context: .
       dockerfile: Dockerfile.web
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     expose:
       - "80"
 
