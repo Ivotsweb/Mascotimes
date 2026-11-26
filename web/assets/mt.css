@@ -188,3 +188,12 @@ img { max-width: 100%; }
 .legal-fecha { margin-top: 26px; font-size: 0.9rem; color: var(--muted); }
 .pie-enlaces a { font-size: 0.9rem; }
 @media (max-width: 520px) { .legal-datos { grid-template-columns: 1fr; gap: 2px; } .legal-datos dd { margin-bottom: 8px; } }
+
+/* Lista de noticias en el HTML (para Google y para quien no tenga JavaScript); mt.js la sustituye */
+.ssr h2 { font-size: 1.4rem; margin: 1rem 0 .5rem; }
+.ssr-lista { list-style: none; margin: 0; padding: 0; }
+.ssr-lista li { padding: .9rem 0; border-bottom: 1px solid rgba(0,0,0,.08); }
+.ssr-lista a { font-weight: 700; font-size: 1.1rem; color: inherit; text-decoration: none; }
+.ssr-lista a:hover { text-decoration: underline; }
+.ssr-lista time { display: block; font-size: .85rem; opacity: .7; margin-top: .2rem; }
+.ssr-lista p { margin: .3rem 0 0; }
