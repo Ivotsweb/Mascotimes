@@ -14,6 +14,7 @@
   function limpiar(n) { while (n.firstChild) n.removeChild(n.firstChild); }
   function dominio(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
   var SECCIONES = ['Perros', 'Gatos', 'España', 'Legales'];
+  function urlSeccion(sname) { return '/noticias/' + String(sname).toLowerCase().replace('ñ', 'n') + '/'; }
   var INTROS = {
     'Perros': 'Educación, salud, razas y vida diaria con tu perro.',
     'Gatos': 'Comportamiento, salud y hogar con tu gato.',
@@ -99,12 +100,12 @@
   }
 
   /* Cabecera de sección con doble filete */
-  function cabSeccion(titulo, enlaceTxt, alClic) {
+  function cabSeccion(titulo, enlaceTxt, alClic, href) {
     var d = el('div', 'sec-t');
     d.appendChild(el('h2', null, titulo));
     if (enlaceTxt) {
       var a = el('a', null, enlaceTxt);
-      a.href = '/noticias/';
+      a.href = href || '/noticias/';
       if (alClic) a.addEventListener('click', function (e) { e.preventDefault(); alClic(); });
       d.appendChild(a);
     }
@@ -203,30 +204,24 @@
   function pintarListado(ns) {
     var raiz = document.getElementById('contenido');
     var filtros = document.getElementById('filtros');
-    var filtro = '';
+    /* Desde el 26 nov 2026 cada sección tiene su página: /noticias/perros/, /gatos/, /espana/, /legales/ */
+    var filtro = document.body.getAttribute('data-seccion') || '';
+    if (SECCIONES.indexOf(filtro) < 0) filtro = '';
     var presentes = SECCIONES.filter(function (s) { return ns.some(function (n) { return sec(n) === s; }); });
-
-    function marcar() {
-      Array.prototype.forEach.call(filtros.querySelectorAll('button'), function (b) {
-        b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === filtro));
-      });
-    }
-    function elegir(f) { filtro = f; marcar(); dibujar(); window.scrollTo(0, 0); }
+    if (filtro && presentes.indexOf(filtro) < 0) presentes.push(filtro);
 
     limpiar(filtros);
     [''].concat(presentes).forEach(function (s) {
-      var b = el('button', 'pill', s || 'Todas');
-      b.type = 'button';
-      b.setAttribute('data-f', s);
-      b.addEventListener('click', function () { elegir(s); });
+      var b = el('a', 'pill' + (s === filtro ? ' on' : ''), s || 'Todas');
+      b.href = s ? urlSeccion(s) : '/noticias/';
+      if (s === filtro) b.setAttribute('aria-current', 'page');
       filtros.appendChild(b);
     });
-    marcar();
 
     function seccion(s, lista) {
       var sc = el('section', 'seccion');
       sc.id = s.toLowerCase().replace('ñ', 'n');
-      sc.appendChild(cabSeccion(s, filtro ? '' : 'Ver todas', function () { elegir(s); }));
+      sc.appendChild(cabSeccion(s, filtro ? '' : 'Ver todas', null, urlSeccion(s)));
       sc.appendChild(el('p', 'intro-sec', INTROS[s] || ''));
       var g = el('div', 'rej-h');
       lista.forEach(function (n) { g.appendChild(tarjetaH(n)); });
@@ -238,7 +233,9 @@
       limpiar(raiz);
       if (!ns.length) { raiz.appendChild(el('p', 'estado', 'Todavía no hay noticias. Vuelve pronto.')); return; }
       if (filtro) {
-        raiz.appendChild(seccion(filtro, ns.filter(function (n) { return sec(n) === filtro; })));
+        var deSec = ns.filter(function (n) { return sec(n) === filtro; });
+        if (!deSec.length) { raiz.appendChild(el('p', 'estado', 'Todavía no hay noticias en esta sección. Vuelve pronto.')); return; }
+        raiz.appendChild(seccion(filtro, deSec));
         return;
       }
       var top = ns[0];
