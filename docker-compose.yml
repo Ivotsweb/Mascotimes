@@ -22,6 +22,22 @@ services:
     expose:
       - "5678"
 
+  # Puerta de entrada de api.mascotimes.com: pasa todo a n8n y le dice a Google que no lo indexe
+  api-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    depends_on:
+      - n8n
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    expose:
+      - "80"
+
   web:
     build:
       context: .
