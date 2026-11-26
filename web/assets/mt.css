@@ -289,3 +289,6 @@ a.ley-card:hover, .ley-card:hover { transform: translateY(-3px); box-shadow: 0 1
 }
 @media (prefers-reduced-motion: reduce) { .ley-card { transition: none; } a.ley-card:hover { transform: none; } }
 .ley-cifras small.ley-fuente { display: block; margin-top: 8px; padding-top: 0; }
+.promesa { margin: 6px auto 0; max-width: 34em; text-align: center; font-size: 1rem; color: var(--muted); }
+.ley-banner-home { margin: 28px 0 0; }
+.ley-correccion { margin: 14px 0 0; padding: 12px 16px; border-radius: 14px; background: var(--cream); font-size: .95rem; }

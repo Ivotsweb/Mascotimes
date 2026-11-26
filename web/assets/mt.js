@@ -18,7 +18,7 @@
   var INTROS = {
     'Perros': 'Educación, salud, razas y vida diaria con tu perro.',
     'Gatos': 'Comportamiento, salud y hogar con tu gato.',
-    'España': 'Lo que ocurre cerca de ti, ciudad a ciudad.',
+    'España': 'Lo que pasa con perros y gatos en España.',
     'Legales': 'Normas oficiales con su fecha de vigencia. Información orientativa: consulta a un profesional.'
   };
   function sec(n) { return n.seccion || n.categoria || 'Noticias'; }
@@ -191,8 +191,7 @@
     if (mas) {
       limpiar(mas);
       if (r.mas.length) {
-        mas.appendChild(cabSeccion('Más noticias de hoy', 'Ver todas'));
-        mas.appendChild(el('p', 'intro-sec', 'Lo que no te puedes perder.'));
+        mas.appendChild(cabSeccion('Más noticias de hoy', 'Ver todas las noticias'));
         var g = el('div', 'rej-h');
         r.mas.slice(0, 6).forEach(function (n) { g.appendChild(tarjetaH(n)); });
         mas.appendChild(g);
@@ -328,11 +327,11 @@
       try { navigator.clipboard.writeText(location.href).then(function () { cp.textContent = 'Enlace copiado'; }); } catch (e) { cp.textContent = 'Copia el enlace de la barra'; }
     });
     acc.appendChild(cp);
-    var wa = el('a', 'pill', 'WhatsApp');
+    var wa = el('a', 'pill', 'Enviar por WhatsApp');
     wa.href = 'https://wa.me/?text=' + encodeURIComponent(n.titular + ' ' + location.href);
     wa.rel = 'noopener noreferrer'; wa.target = '_blank';
     acc.appendChild(wa);
-    var co = el('a', 'pill', 'Correo');
+    var co = el('a', 'pill', 'Enviar por correo');
     co.href = 'mailto:?subject=' + encodeURIComponent(n.titular) + '&body=' + encodeURIComponent(location.href);
     acc.appendChild(co);
     barra.appendChild(acc);
@@ -361,7 +360,7 @@
     var as = el('aside');
     var pf = el('div', 'panel');
     pf.appendChild(el('span', 'kicker', 'Fuentes consultadas'));
-    var p1 = el('p'); p1.appendChild(el('b', null, 'Texto: ')); p1.appendChild(document.createTextNode('propio de MascoTimes, redactado con ayuda de IA a partir de la fuente y revisado por una persona.'));
+    var p1 = el('p'); p1.appendChild(el('b', null, 'Cómo se ha hecho: ')); p1.appendChild(document.createTextNode('texto propio de MascoTimes, redactado con ayuda de IA a partir de la fuente y revisado por una persona.'));
     pf.appendChild(p1);
     if (n.fuente_url) {
       var p2 = el('p'); p2.appendChild(el('b', null, 'Fuente original: '));
