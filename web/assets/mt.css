@@ -203,3 +203,88 @@ img { max-width: 100%; }
   .col-izq { order: 2; padding-right: 0; border-right: 0; }
   .col-cen { order: 1; }
 }
+
+/* ---------- Tu perro y la ley (26 nov 2026): guía visual tipo semáforo ---------- */
+.ley { max-width: 960px; margin: 0 auto; }
+.ley .migas { margin: 18px 0 0; font-size: .85rem; color: var(--muted); }
+.ley-hero { margin: 14px 0 22px; padding: 34px 32px; border-radius: 28px; background: var(--green); color: var(--paper); position: relative; overflow: hidden; }
+.ley-hero::after { content: "§"; position: absolute; right: -10px; bottom: -70px; font: 260px/1 var(--serif); color: rgba(247,243,235,.08); }
+.ley-kicker { display: inline-block; padding: 6px 14px; border-radius: 999px; background: var(--gold); color: var(--ink); font: 700 .75rem var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.ley-hero h1 { margin: 14px 0 6px; font: 700 clamp(2.2rem, 6vw, 3.6rem)/1.05 var(--serif); }
+.ley-sub { margin: 0; font-size: 1.25rem; max-width: 30em; }
+.ley-sello { margin: 18px 0 0; display: inline-flex; gap: 8px; align-items: center; padding: 8px 14px; border-radius: 12px; background: rgba(247,243,235,.14); font-size: .9rem; }
+.ley-leyenda { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0 0 8px; font-weight: 700; font-size: .95rem; }
+.ley-leyenda span { display: inline-flex; align-items: center; gap: 8px; }
+.punto { display: inline-block; width: 14px; height: 14px; border-radius: 50%; }
+.p-verde { background: #2E8B57; } .p-oro { background: var(--gold); } .p-gris { background: #A9A59B; }
+.ley-bloque { margin: 30px 0 0; }
+.ley-bloque h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; font: 700 1.7rem/1.2 var(--serif); }
+.ley-lead { margin: 0 0 16px; font-size: 1.05rem; color: var(--muted); }
+.ley-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.ley-card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 22px 20px 18px; background: var(--card); border: 1px solid var(--line); border-top: 6px solid #2E8B57; border-radius: 20px; box-shadow: 0 6px 18px rgba(32,35,33,.07); color: var(--ink); transition: transform .15s ease, box-shadow .15s ease; }
+a.ley-card:hover, .ley-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(32,35,33,.12); text-decoration: none; color: var(--ink); }
+.ley-card.ley-gris { border-top-color: #A9A59B; background: #FBFAF6; }
+.ley-ico { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: var(--mint); font-size: 1.8rem; }
+.ley-gris .ley-ico { background: var(--cream); }
+.ley-card h3 { margin: 4px 0 0; font: 700 1.25rem/1.2 var(--serif); }
+.ley-card p { margin: 0; font-size: 1.05rem; line-height: 1.45; }
+.ley-fuente { margin-top: auto; padding-top: 6px; font-size: .78rem; font-weight: 700; color: var(--green); letter-spacing: .02em; }
+.ley-ir { position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--green); color: var(--paper); font-weight: 700; }
+.ley-mas { margin-top: 4px; }
+.ley-mas summary { cursor: pointer; font-weight: 700; color: var(--green); min-height: 32px; display: flex; align-items: center; }
+.ley-mas p { margin: 6px 0 0; font-size: .98rem; color: var(--muted); }
+.ley-fecha { display: flex; align-items: center; gap: 20px; padding: 20px 22px; border-radius: 22px; background: #FFF6E2; border: 2px solid var(--gold); color: var(--ink); position: relative; }
+.ley-fecha:hover { text-decoration: none; color: var(--ink); box-shadow: 0 10px 24px rgba(229,176,79,.25); }
+.ley-dia { flex: none; display: grid; place-items: center; width: 92px; height: 92px; border-radius: 18px; background: var(--gold); text-align: center; font: 700 .85rem/1.1 var(--sans); letter-spacing: .08em; }
+.ley-dia b { display: block; font: 700 2.4rem/1 var(--serif); }
+.ley-fecha-txt { padding-right: 40px; font-size: 1.1rem; line-height: 1.4; }
+.ley-fecha-txt small { display: block; margin-top: 6px; font-size: .78rem; font-weight: 700; color: var(--green); }
+.ley-fecha .ley-ir { top: 50%; transform: translateY(-50%); }
+.ley-hoy { margin: 34px 0 0; padding: 26px 28px; border-radius: 24px; background: var(--sage); }
+.ley-hoy h2 { margin: 0 0 12px; font: 700 1.5rem/1.2 var(--serif); }
+.ley-hoy ol { margin: 0; padding-left: 1.3em; font-size: 1.1rem; }
+.ley-hoy li { margin: 0 0 10px; }
+.ley-hoy p { margin: 0; font-size: 1.1rem; }
+.ley-respuesta { margin: 0 0 8px; padding: 26px 28px; border-radius: 24px; background: var(--card); border: 3px solid #A9A59B; }
+.ley-r-oro { border-color: var(--gold); }
+.ley-r-pregunta { display: block; font-weight: 700; color: var(--muted); }
+.ley-respuesta strong { display: block; margin: 4px 0; font: 700 clamp(2rem, 5vw, 2.8rem)/1.1 var(--serif); color: var(--green); }
+.ley-respuesta p { margin: 0; font-size: 1.15rem; }
+.ley-etiqueta { display: inline-block; margin-right: 6px; padding: 3px 10px; border-radius: 999px; background: var(--gold); color: var(--ink); font: 700 .72rem var(--sans); letter-spacing: .1em; text-transform: uppercase; vertical-align: middle; }
+.ley-pasos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.ley-pasos li { display: flex; flex-direction: column; gap: 4px; padding: 18px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); text-align: center; }
+.ley-paso-ico { font-size: 2rem; }
+.ley-pasos b { font: 700 1.25rem var(--serif); }
+.ley-dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 14px; }
+.ley-mini { padding: 18px 20px; border-radius: 18px; background: #FFF6E2; }
+.ley-mini b { font-size: 1.1rem; }
+.ley-mini p { margin: 6px 0 0; font-size: 1.02rem; }
+.ley-test { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 14px; }
+.ley-test li { display: flex; gap: 16px; align-items: flex-start; padding: 20px 22px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); border-left: 8px solid #2E8B57; }
+.ley-test li.ley-gris { border-left-color: #A9A59B; background: #FBFAF6; }
+.ley-q { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: var(--paper); font: 700 1.3rem var(--serif); }
+.ley-test b { font-size: 1.15rem; }
+.ley-test p { margin: 4px 0 6px; font-size: 1.08rem; }
+.ley-test strong { color: var(--green); }
+.ley-cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.ley-cifras div { padding: 20px; border-radius: 18px; background: #FFF6E2; text-align: center; }
+.ley-cifras b { display: block; font: 700 2rem/1.1 var(--serif); color: var(--green); }
+.ley-cifras span { font-size: .98rem; }
+.ley-volver { display: inline-block; margin: 30px 0 0; padding: 12px 20px; border-radius: 999px; background: var(--green); color: var(--paper); font-weight: 700; }
+.ley-volver:hover { color: var(--paper); text-decoration: none; background: var(--green-dark); }
+.ley-fuentes { margin: 34px 0 0; padding: 20px 22px; border-radius: 18px; border: 1px dashed var(--line-strong); }
+.ley-fuentes h2 { margin: 0 0 8px; font: 700 1.05rem var(--serif); }
+.ley-fuentes ul { margin: 0; padding-left: 1.2em; font-size: .92rem; }
+.ley-aviso { margin: 18px 0 0; font-size: .85rem; color: var(--muted); }
+.ley-oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.ley-banner { display: flex; align-items: center; gap: 16px; margin: 18px 0 8px; padding: 18px 22px; border-radius: 20px; background: var(--green); color: var(--paper); }
+.ley-banner:hover { color: var(--paper); text-decoration: none; background: var(--green-dark); }
+.ley-banner b { font: 700 1.25rem var(--serif); display: block; }
+.ley-banner .ley-ir { position: static; flex: none; margin-left: auto; background: var(--gold); color: var(--ink); }
+@media (max-width: 640px) {
+  .ley-hero { padding: 26px 20px; border-radius: 22px; }
+  .ley-fecha { flex-direction: column; align-items: flex-start; }
+  .ley-fecha-txt { padding-right: 0; }
+  .ley-fecha .ley-ir { top: 20px; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ley-card { transition: none; } a.ley-card:hover { transform: none; } }

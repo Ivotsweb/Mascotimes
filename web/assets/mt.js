@@ -382,6 +382,8 @@
     raiz.appendChild(cont);
   }
 
+  /* Las guías fijas (data-page="ley") no necesitan noticias */
+  if (page !== 'portada' && page !== 'listado' && page !== 'noticia') return;
   cargar(function (ns) {
     if (page === 'portada') pintarPortada(ns);
     else if (page === 'listado') pintarListado(ns);
