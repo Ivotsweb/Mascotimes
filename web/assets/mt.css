@@ -228,7 +228,7 @@ a.ley-card:hover, .ley-card:hover { transform: translateY(-3px); box-shadow: 0 1
 .ley-gris .ley-ico { background: var(--cream); }
 .ley-card h3 { margin: 4px 0 0; font: 700 1.25rem/1.2 var(--serif); }
 .ley-card p { margin: 0; font-size: 1.05rem; line-height: 1.45; }
-.ley-fuente { margin-top: auto; padding-top: 6px; font-size: .78rem; font-weight: 700; color: var(--green); letter-spacing: .02em; }
+.ley-fuente { margin-top: auto; padding-top: 6px; font-size: .9rem; font-weight: 700; color: var(--green); letter-spacing: .02em; }
 .ley-ir { position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--green); color: var(--paper); font-weight: 700; }
 .ley-mas { margin-top: 4px; }
 .ley-mas summary { cursor: pointer; font-weight: 700; color: var(--green); min-height: 32px; display: flex; align-items: center; }
