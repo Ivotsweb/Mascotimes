@@ -33,7 +33,13 @@
     if (isNaN(d)) return '';
     return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
   }
-  function urlNoticia(n) { return '/n/' + encodeURIComponent(n.id) + '/'; }
+  /* Dirección con palabras (26 nov 2026). Misma función que en n8n (Páginas para Google) */
+  function slugMT(t) {
+    var s = String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    if (s.length > 70) s = s.slice(0, 70).replace(/-[^-]*$/, '');
+    return s.replace(/-+$/, '') || 'noticia';
+  }
+  function urlNoticia(n) { return '/n/' + encodeURIComponent(n.id) + '/' + slugMT(n.titular) + '/'; }
 
   // Fecha de hoy en la barra superior
   var f = document.getElementById('fecha-hoy');
@@ -274,7 +280,7 @@
     var md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute('content', n.entradilla);
     /* SEO: enlace canónico propio, etiquetas sociales y datos estructurados de artículo */
-    var urlCanon = 'https://mascotimes.com/n/' + encodeURIComponent(n.id) + '/';
+    var urlCanon = 'https://mascotimes.com' + urlNoticia(n);
     var imgUrl = n.imagen ? API + 'foto-publica?g=' + encodeURIComponent(n.id) : '';
     function fijar(sel, attr, val, crear) {
       var m = document.querySelector(sel);
